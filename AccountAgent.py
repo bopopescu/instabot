@@ -1,5 +1,10 @@
 from time import sleep
 import datetime
+
+from selenium.webdriver.common import actions
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.remote.webelement import WebElement
+
 import DBUsers, Constants
 import traceback
 import random
@@ -25,12 +30,12 @@ def login(webdriver):
     sleep(random.randint(1, 3))
     #click login
     button_login.click()
-    sleep(random.randint(1, 4))
+    sleep(5)
     #In case you get a popup after logging in, press not now.
     #If not, then just return
     try:
-        notnow = webdriver.find_element_by_css_selector(
-            'body > div.RnEpo.Yx5HN > div > div > div.mt3GC > button.aOOlW.HoLwm')
+        notnow = webdriver.find_element_by_xpath(
+            '/html/body/div[4]/div/div/div[3]/button[2]')
         notnow.click()
     except:
         return
@@ -100,7 +105,10 @@ def follow_people(webdriver):
                         sleep(random.randint(5, 18))
 
                     # Next picture
-                    webdriver.find_element_by_xpath('/html/body/div[4]/div[1]/div/div/a').click()
+
+                    next = webdriver.find_element_by_xpath('/html/body')
+                    next.send_keys(Keys.ARROW_RIGHT)
+
                     sleep(random.randint(20, 30))
 
                 except:

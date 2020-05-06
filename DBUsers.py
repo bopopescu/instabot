@@ -31,7 +31,6 @@ def check_unfollow_list():
     for r in results:
         date = datetime.datetime.strptime(r[2], '%Y-%m-%d').date()
         d = (datetime.datetime.now().date()-date).days
-        print(d)
         if d >= Constants.DAYS_TO_UNFOLLOW:
             users_to_unfollow.append(r[1])
     return users_to_unfollow
@@ -45,6 +44,6 @@ def get_followed_users():
     cursor.execute("SELECT * FROM followed_users")
     results = cursor.fetchall()
     for r in results:
-        users.append(r[0])
+        users.append(r[1])
 
     return users

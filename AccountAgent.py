@@ -50,7 +50,7 @@ def follow_people(webdriver):
     followed = 0
     likes = 0
     # Iterate theough all the hashtags from the constants
-    for hashtag in Constants.HASHTAGS:
+    for hashtag in random.choices(Constants.HASHTAGS):
         # Visit the hashtag
         webdriver.get('https://www.instagram.com/explore/tags/' + hashtag + '/')
         sleep(random.randint(3, 8))
@@ -64,7 +64,7 @@ def follow_people(webdriver):
 
         try:
             # iterate over the first 200 posts in the hashtag
-            for x in range(1, 200):
+            for x in range(1, 15):
                 t_start = datetime.datetime.now()
                 # Get the poster's username
                 username = webdriver.find_element_by_xpath(
@@ -72,15 +72,17 @@ def follow_people(webdriver):
                 likes_over_limit = False
                 try:
                     # get number of likes and compare it to the maximum number of likes to ignore post
-                    likes = float(webdriver.find_element_by_xpath(
+                    likes = (webdriver.find_element_by_xpath(
                         '/html/body/div[4]/div[2]/div/article/div[2]/section[2]/div/div[2]/button/span').text)
-                    if likes > Constants.LIKES_LIMIT:
+                    likes=int(likes.replace(".",""))
+
+                    if likes < Constants.LIKES_LIMIT:
                         print("likes over {0}".format(Constants.LIKES_LIMIT))
                         likes_over_limit = True
 
                     print("Detected: {0}".format(username))
                     # If username isn't stored in the database and the likes are in the acceptable range
-                    if username not in prev_user_list and not likes_over_limit:
+                    if username not in prev_user_list and likes_over_limit==True:
 
                         # Don't press the button if the text doesn't say follow
                         if webdriver.find_element_by_xpath(
@@ -94,7 +96,7 @@ def follow_people(webdriver):
                             followed += 1
                             print("Followed: {0}, #{1}".format(username, followed))
                             new_followed.append(username)
-
+                            prev_user_list.append(username)
                         # Liking the picture
                         button_like = webdriver.find_element_by_xpath(
                             '/html/body/div[4]/div[2]/div/article/div[2]/section[1]/span[1]/button')
@@ -102,7 +104,18 @@ def follow_people(webdriver):
                         button_like.click()
                         likes += 1
                         print("Liked {0}'s post, #{1}".format(username, likes))
-                        sleep(random.randint(5, 18))
+                        sleep(random.randint(5, 9))
+
+                        #Comentario
+                        # valor=random.randint(1, 100)
+                        # print(valor)
+                        # if valor %2==0:
+                        #     comment=random.choices(Constants.COMENTARIOS)
+                        #     print("Comentario: "+str(comment))
+                        #     campo_comentario = webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[2]/section[3]/div/form/textarea')
+                        #     campo_comentario.send_keys("Muitoo bom!!")
+                        #     button_comment = webdriver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[2]/section[3]/div/form/button')
+                        #     button_comment().click()
 
                     # Next picture
 

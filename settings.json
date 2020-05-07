@@ -6,14 +6,14 @@
     "database": "instabot"
   },
   "instagram": {
-    "user": "mochileiros_oficial",
-    "pass": "45heusho"
+    "user": "",
+    "pass": ""
   },
   "config": {
     "days_to_unfollow": 1,
     "likes_over": 1500,
     "check_followers_every": 3600,
-    "hashtags": ["quarentine","brazilian","tbt","lovers","Brazil","vacation","developer","programation","work","job","happy","happyness","instagood"],
+    "hashtags": ["quarentine","brazilian","Brazil","vacation","developer","stayhome","programation","work","job","happy","happyness","instagood"],
     "comments": ["Woow!! Amazing picture!!","Nice...!","Good Job"],
     "comentarios": ["Muito legal sua foto!","Muitoo bom !!"]
   }

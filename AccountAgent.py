@@ -104,7 +104,7 @@ def follow_people(webdriver):
                         button_like.click()
                         likes += 1
                         print("Liked {0}'s post, #{1}".format(username, likes))
-                        sleep(random.randint(5, 9))
+                        sleep(random.randint(5, 18))
 
                         #Comentario
                         # valor=random.randint(1, 100)
